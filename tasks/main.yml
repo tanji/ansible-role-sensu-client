@@ -1,0 +1,25 @@
+- name: Install Sensu repo
+  copy: src=sensu.repo dest=/etc/yum.repos.d/sensu.repo
+- name: Install Sensu
+  yum: name=sensu state=present
+- name: Configure Sensu base
+  copy: src=config.json dest=/etc/sensu/config.json
+- name: Configure client
+  template: src=client.json.j2 dest=/etc/sensu/conf.d/client.json
+- name: Configure transport
+  copy: src=config.json dest=/etc/sensu/config.json
+- name: Install dependencies
+  yum: name={{ item }} state=present
+  with_items:
+#    - ruby-devel
+#    - rubygems
+    - gcc
+    - MariaDB-devel
+- name: Install Sensu mysql plugins
+  gem: name=sensu-plugins-mysql state=latest user_install=no executable=/opt/sensu/embedded/bin/gem
+- name: Install custom plugin
+  copy: src=check-mysql-threads.rb dest=/etc/sensu/plugins/ mode=755
+- name: Install mysql creds
+  copy: src=my.ini dest=/etc/sensu/ mode=700 owner=sensu
+- name: Restart client
+  service: name=sensu-client state=restarted
