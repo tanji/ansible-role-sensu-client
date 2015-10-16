@@ -2,3 +2,6 @@
 sensu_host: "admin"
 sensu_user: "sensu"
 sensu_password: "secret"
+
+mysql_user: "sensu"
+mysql_password: "m0n1t0r1ng"

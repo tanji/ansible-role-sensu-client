@@ -16,6 +16,6 @@
 - name: Install custom plugin
   copy: src=check-mysql-threads.rb dest=/etc/sensu/plugins/ mode=755
 - name: Install mysql creds
-  copy: src=my.ini dest=/etc/sensu/ mode=700 owner=sensu
+  template: src=my.ini.j2 dest=/etc/sensu/my.ini mode=700 owner=sensu
 - name: Restart client
   service: name=sensu-client state=restarted
