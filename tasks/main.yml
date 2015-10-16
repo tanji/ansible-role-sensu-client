@@ -1,2 +1,3 @@
 - include: sensu.yml
+- include: mysql.yml
 - include: client.yml
