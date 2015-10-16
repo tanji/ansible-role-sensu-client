@@ -1,0 +1,4 @@
+- name: Install MySQL python module
+  yum: name=MySQL-python state=present
+- name: Create monitoring user
+  mysql_user: name={{ mysql_user }} password={{ mysql_password }} priv=*.*:"REPLICATION CLIENT" state=present
