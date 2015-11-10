@@ -14,4 +14,4 @@
 - name: Install mysql creds
   template: src=my.ini.j2 dest=/etc/sensu/my.ini mode=700 owner=sensu
 - name: Restart client
-  service: name=sensu-client state=restarted
+  service: name=sensu-client state=restarted enabled=yes
